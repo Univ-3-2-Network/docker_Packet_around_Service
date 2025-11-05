@@ -1,6 +1,6 @@
 version: "3.9"
 
-service:
+services:
   db:
     image: postgres:16-alpine
     container_name: app_db
