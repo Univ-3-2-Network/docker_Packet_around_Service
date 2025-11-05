@@ -10,7 +10,7 @@ RUN npm run build
 
 # --- Run stage ---
 FROM nginx:1.27-alpine
-WORKDIR /usr/hare/nginx/html
+WORKDIR /usr/share/nginx/html
 COPY --from=build /app/dist ./
 # COPY nginx.conf /etc/nginx/nginx.conf
 EXPOSE 80
