@@ -8,45 +8,41 @@ services:
       POSTGRES_DB: ${DB_NAME}
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
-
-      volumes:
-        - db_data:/var/lib/postgresql/data
-      networks:
-        - app_net
-      healthcheck:
-        test: [ "CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}" ]
-        interval: 5s
-        timeout: 3s
-        retries: 10
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    networks:
+      - app_net
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}" ]
+      interval: 5s
+      timeout: 3s
+      retries: 10
 
   backend:
     build:
       context: ./backend
       dockerfile: Dockerfile
-
-      container_name: app_backend
-      environment:
-        SPRING_PROFILES_ACTIVE: ${SPRING_PROFILE}
-        DB_HOST: db
-        DB_PORT: 5432
-        DB_NAME: ${DB_NAME}
-        DB_USER: ${DB_USER}
-        DB_PASSWORD: ${DB_PASSWORD}
-        # 자주 쓰는 CORS/ Default config
-        CORS_ORIGINS: ${CORS_ORIGINS}
-
-        depends_on:
-          db:
-            condition: service_healthy
-          network:
-            - app_net
-          expose:
-            - "8080"
-          healthcheck:
-            test: [ "CMD-SHELL", "wget -qO- http://localhost:8080/actuator/health | grep -q '\"status\":\"UP\"'" ]
-            interval: 10s
-            timeout: 3s
-            retries: 15
+    container_name: app_backend
+    environment:
+      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILE}
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      CORS_ORIGINS: ${CORS_ORIGINS}
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - app_net
+    expose:
+      - "8080"
+    healthcheck:
+      test: [ "CMD-SHELL", "wget -qO- http://localhost:8080/actuator/health | grep -q '\"status\":\"UP\"'" ]
+      interval: 10s
+      timeout: 3s
+      retries: 15
 
   frontend:
     build:
@@ -55,24 +51,24 @@ services:
     container_name: app_frontend
     depends_on:
       backend:
-        condition: service_healthy
+        condition: service_started
     networks:
       - app_net
     expose:
       - "80"
 
-    reverse-proxy:
-      build:
-        context: ./reverse-proxy
-        docerfile: Dockerfile
-      container_name: app_reverse_proxy
-      ports:
-        - "${HTTP_PORT}:80"
-      depends_on:
-        frontend:
-          condition: service_started
-        networks:
-          - app-net
+  reverse-proxy:
+    build:
+      context: ./reverse-proxy
+      dockerfile: Dockerfile
+    container_name: app_reverse_proxy
+    depends_on:
+      frontend:
+        condition: service_started
+    networks:
+      - app_net
+    ports:
+      - "${HTTP_PORT}:80"
 
 networks:
   app_net:
