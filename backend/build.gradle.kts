@@ -1,12 +1,18 @@
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(21))
+    }
+}
+
 plugins {
   id("org.springframework.boot") version "3.3.4"
   id("io.spring.dependency-management") version "1.1.6"
   kotlin("jvm") version "2.0.10" apply false // if not use kotlin, U can remove this section
-  java 
+  java
 }
 
 group = "com.example"
-verison = "0.0.1-SNAPSHOT"
+version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_21
 
 repositories { mavenCentral() }
