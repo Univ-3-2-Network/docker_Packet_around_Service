@@ -4,15 +4,15 @@ import java.time.OffsetDateTime;
 
 @Entity @Table(name="net_packets")
 public class NetPacketEntity{
-  @Id @generatedValue(strategy=GenerationType.IDENTITY)
-  private Lond id;
+  @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+  private Long id;
 
   @Column(name="ts_utc", nullable=false)
   private OffsetDateTime tsUtc = OffsetDateTime.now();
 
   private Double timeRel;
   private String src;
-  private String dst;
+  private String dst;  
   private String protocol;
   private Integer length;
   @Column(length=4000) private String info;
