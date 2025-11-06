@@ -25,4 +25,6 @@ public class NetPacketEntity{
 
   private String dnsQuery;
   private String dnsAnswer;
+
+  // TODO: need add getter, setter parts
 }
