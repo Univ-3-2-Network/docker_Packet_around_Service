@@ -48,10 +48,10 @@ public class NetCsvService{
         // if protocol == http / parsing path, HTTP ver, answerCode, Host, e.t.c.
         if("http".equalsIgnoreCase(proto)){
 
-          if (lower.startWith("get ")) { e.setHttpMethod("GET"); e.setHttpPath(extractHttpPath(info)); }
-          else if(lower.startWith("post ")) { e.setHttpMethod("POST"); e.setHttpPath(extractHttpPath(info)); }
-          else if(lower.startWith("http/")) {e.setHttpStatus(extractHttpStatus(info)); }
-          if (lower.startWith("host:")) { e.setHttpHost(info.substring(5).trim()); }
+          if (lower.startsWith("get ")) { e.setHttpMethod("GET"); e.setHttpPath(extractHttpPath(info)); }
+          else if(lower.startsWith("post ")) { e.setHttpMethod("POST"); e.setHttpPath(extractHttpPath(info)); }
+          else if(lower.startsWith("http/")) {e.setHttpStatus(extractHttpStatus(info)); }
+          if (lower.startsWith("host:")) { e.setHttpHost(info.substring(5).trim()); }
         }
 
         // if protocol == dns / parsing standard query, ns name || query resp, e.t.c.
@@ -78,16 +78,27 @@ public class NetCsvService{
     catch(Exception e) { return null; }
   }
 
-  // TCP / extract Flags 
+  // into info / " [SYN, ACK] " → "SYN, ACK" / extracted
   private static String extractTcpFlags(String info) {
     if (info == null) { return null; }
     int i = info.indexOf('['), j = info.indexOf(']');
     return (i>=0 && j >i) ? info.substring(i+1, j) : null;
   }
 
+  // into info / "GET /ex/ex1 " -> "/ex/ex1" / extracted
   private static String extractHttpPath(String info){
     if (info == null ) {return null; }
     String[] parts = info.split(" ");
+    
+    if (parts.length >= 2) { return parts[1]; }
+    return null;
+  }
+
+  // into info / "HTTP/1.1 200 OK" -> 200 / extracted
+  private Integer extractHttpStatus(String info){
+    if (info == null ) {return null; }
+    String[] parts = info.split(" ");
+
     if (parts.length >= 2){
       try { return Integer.parseInt(parts[1]); } catch ( Exception ignored) {}
     }
