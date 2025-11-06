@@ -1,6 +1,6 @@
 package com.example.demo.net;
 
-import lombok.RequireArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.csv.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -10,7 +10,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 
 @Service
-@RequireArgsConstructor
+@RequiredArgsConstructor
 public class NetCsvService{
   private final NetPacketRepository repo;
 
