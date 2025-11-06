@@ -95,7 +95,7 @@ public class NetCsvService{
   }
 
   // into info / "HTTP/1.1 200 OK" -> 200 / extracted
-  private Integer extractHttpStatus(String info){
+  private static Integer extractHttpStatus(String info){
     if (info == null ) {return null; }
     String[] parts = info.split(" ");
 
@@ -105,5 +105,17 @@ public class NetCsvService{
     return null;
   }
 
-  private 
+  // into info / Standard query ... A www.tuk... - last token
+  private static String extractDnsQuery(String info){
+    if (info == null) { return null;}
+    String[] parts = info.trim().split("\\s+");
+    return parts[parts.length -1];
+  }
+
+  // into info / Standard query response ... A 203.255.xxx.xxx - last token / IPv4 || IPv6
+  private static String extractDnsAnswer(String info){
+    if (info == null) {return null;}
+    String[] parts = info.trim().split("\\s+");
+    return parts[parts.length -1];
+  }
 }
