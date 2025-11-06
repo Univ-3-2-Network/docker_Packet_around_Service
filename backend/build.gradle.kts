@@ -17,7 +17,10 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     runtimeOnly("org.postgresql:postgresql:42.7.4")
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+
+    // Apache commons CSV 파싱 라이브러리 추가
+    implementation("org.apache.commons:commons-csv:1.10.0") // CSV 파싱)
 }
 
 // 메인클래스 지정
