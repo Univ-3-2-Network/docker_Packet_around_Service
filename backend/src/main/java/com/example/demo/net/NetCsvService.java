@@ -73,7 +73,7 @@ public class NetCsvService{
     try { return s == null? null: Integer.parseInt(s.trim()); }
     catch(Exception e) {return null;}
   }
-  private static Double(String s) {
+  private static Double parseDouble (String s) {
     try { return s == null? null: Double.parseDouble(s.trim()); }
     catch(Exception e) { return null; }
   }
@@ -88,5 +88,11 @@ public class NetCsvService{
   private static String extractHttpPath(String info){
     if (info == null ) {return null; }
     String[] parts = info.split(" ");
+    if (parts.length >= 2){
+      try { return Integer.parseInt(parts[1]); } catch ( Exception ignored) {}
+    }
+    return null;
   }
+
+  private 
 }
