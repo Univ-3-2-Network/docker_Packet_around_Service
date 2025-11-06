@@ -16,8 +16,9 @@ repositories { mavenCentral() }
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
-    runtimeOnly("org.postgresql:postgresql:42.7.4")
+    implementation ("org.projectlombok:lombok")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    runtimeOnly("org.postgresql:postgresql:42.7.4")
 
     // Apache commons CSV 파싱 라이브러리 추가
     implementation("org.apache.commons:commons-csv:1.10.0") // CSV 파싱)
