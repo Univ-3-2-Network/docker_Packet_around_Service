@@ -26,7 +26,6 @@ public class NetPacketEntity{
   private String dnsQuery;
   private String dnsAnswer;
 
-  // TODO: need add getter, setter parts
   public void setTimeRel(Double e)     { timeRel = e; }
   public void setSrc(String e)         { src = e; }
   public void setDst(String e)         { dst = e; }
