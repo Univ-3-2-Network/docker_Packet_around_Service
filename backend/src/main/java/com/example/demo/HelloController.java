@@ -7,6 +7,4 @@ import org.springframework.web.bind.annotation.*;
 public class HelloController {
   @GetMapping("/hello")
   public String hello() {return "hello";}
-  @GetMapping("/db_test")
-  public String db_test() {return "db_test";}
 }
