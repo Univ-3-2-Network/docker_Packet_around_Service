@@ -23,12 +23,12 @@ public class NetCsvService{
       Iterable<CSVRecord> records = fmt.parse(reader);
       int count = 0;
       for (CSVRecord r : records){
-        String time = get(r, "Time");
-        String src = get(r, "Source");
-        String dst = get(r, "Destination");
+        String time =  get(r, "Time");
+        String src =   get(r, "Source");
+        String dst =   get(r, "Destination");
         String proto = get(r, "Protocol");
-        String len = get(r, "Length");
-        String info = get(r, "Info"); 
+        String len =   get(r, "Length");
+        String info =  get(r, "Info"); 
 
         NetPacketEntity e = new NetPacketEntity();
         e.setTimeRel(parseDouble(time));
