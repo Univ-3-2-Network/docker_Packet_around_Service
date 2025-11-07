@@ -1,5 +1,17 @@
-backend/.gradle/8.10.2/checksums/checksums.lock
-backend/.gradle/8.10.2/checksums/md5-checksums.bin
-backend/.gradle/8.10.2/checksums/sha1-checksums.bin
-backend/.gradle/8.10.2/fileHashes/fileHashes.bin
-backend/.gradle/8.10.2/fileHashes/fileHashes.lock
+# env
+.env
+
+# Java/Gradle
+**/build/
+**/.gradle/
+**/.settings/
+**/.classpath
+**/.project
+
+# Node
+frontend/node_modules/
+frontend/dist/
+
+# OS
+.DS_Store
+Thumbs.db
