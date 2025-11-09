@@ -59,7 +59,7 @@ public class NetController {
             FROM net_packets
             WHERE protocol ILIKE 'http' AND ts_utc > now() - make_interval(secs => ?)
             GROUP BY kind, host, path, status
-            ORDER BY cnd DESC
+            ORDER BY cnt DESC
         """;
         return jdbc.queryForList(sql, seconds);
     } 
