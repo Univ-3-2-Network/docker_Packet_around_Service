@@ -23,12 +23,12 @@ public class NetCsvService{
       Iterable<CSVRecord> records = fmt.parse(reader);
       int count = 0;
       for (CSVRecord r : records){
-        String time = get(r, "Time");
-        String src = get(r, "Source");
-        String dst = get(r, "Destination");
+        String time =  get(r, "Time");
+        String src =   get(r, "Source");
+        String dst =   get(r, "Destination");
         String proto = get(r, "Protocol");
-        String len = get(r, "Length");
-        String info = get(r, "Info"); 
+        String len =   get(r, "Length");
+        String info =  get(r, "Info"); 
 
         NetPacketEntity e = new NetPacketEntity();
         e.setTimeRel(parseDouble(time));
@@ -48,10 +48,11 @@ public class NetCsvService{
         // if protocol == http / parsing path, HTTP ver, answerCode, Host, e.t.c.
         if("http".equalsIgnoreCase(proto)){
 
-          if (lower.startsWith("get ")) { e.setHttpMethod("GET"); e.setHttpPath(extractHttpPath(info)); }
+          if     (lower.startsWith("get ")) { e.setHttpMethod("GET"); e.setHttpPath(extractHttpPath(info)); }
           else if(lower.startsWith("post ")) { e.setHttpMethod("POST"); e.setHttpPath(extractHttpPath(info)); }
           else if(lower.startsWith("http/")) {e.setHttpStatus(extractHttpStatus(info)); }
-          if (lower.startsWith("host:")) { e.setHttpHost(info.substring(5).trim()); }
+          
+          if     (lower.startsWith("host:")) { e.setHttpHost(info.substring(5).trim()); }
         }
 
         // if protocol == dns / parsing standard query, ns name || query resp, e.t.c.
