@@ -29,7 +29,7 @@ public class NetController {
     @GetMapping("/latest")
     public List<Map<String,Object>> latest(@RequestParam(defaultValue="50") int limit){
         limit = Math.max(1, Math.min(500, limit));
-        return jdbc.queryForList("SELECT ts_utc, src, dst, protocol, length, info FROM net_packets DESC LIMIT ?", limit);
+        return jdbc.queryForList("SELECT ts_utc, src, dst, protocol, length, info FROM net_packets ORDER BY ts_utc DESC LIMIT ?", limit);
     } 
 
     // Analysis DNS query || simple ver
