@@ -71,8 +71,8 @@ public class NetController {
             SELECT
                 sum(CASE WHEN tcp_flags ILIKE '%SYN%' AND tcp_flags NOT ILIKE '%ACK%' THEN 1 ELSE 0 END) AS syn,
                 sum(CASE WHEN tcp_flags ILIKE '%SYN%' AND tcp_flags ILIKE '%ACK%' THEN 1 ELSE 0 END) AS syn_ack,
-                sum(CASE WHEN tcp_flags ILIKE '%ACK%' AND tcp_flags AND coalesce(tcp_flags, '') NOT ILIKE '%SYN%' THEN 1 ELSE 0 END) AS ack_only,
-                sum(CASE WHEN tcp_flags ILIKE '%RST%' AND tcp_flags THEN 1 ELSE 0 END) AS rst,
+                sum(CASE WHEN tcp_flags ILIKE '%ACK%' AND coalesce(tcp_flags, '') NOT ILIKE '%SYN%' THEN 1 ELSE 0 END) AS ack_only,
+                sum(CASE WHEN tcp_flags ILIKE '%RST%' THEN 1 ELSE 0 END) AS rst,
                 count(*) AS total_tcp
             FROM net_packets
             WHERE protocol ILIKE 'tcp' AND ts_utc > now() - make_interval(secs => ?)
