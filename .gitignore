@@ -8,6 +8,9 @@
 **/.classpath
 **/.project
 
+# Ignore issue
+issue
+
 # Node
 frontend/node_modules/
 frontend/dist/
